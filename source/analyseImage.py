@@ -66,45 +66,6 @@ def splitImage(imageArray):
         meanArray.append(np.around(np.mean(arr, axis=0)))
     return (meanArray)
 
-def threshold(imageArray):
-
-    balanceAr = []
-    newAr = imageArray
-
-    from statistics import mean
-    for eachRow in imageArray:
-        for eachPix in eachRow:
-            avgNum = mean(eachPix[:3])
-            balanceAr.append(avgNum)
-
-    balance = 125 #mean(balanceAr)
-    for eachRow in newAr:
-        for eachPix in eachRow:
-            if mean(eachPix[:3]) > balance * 2:
-                eachPix[0] = 255
-                eachPix[1] = 255
-                eachPix[2] = 255
-            elif mean(eachPix[:3]) > balance * 1.5:
-                eachPix[0] = 200
-                eachPix[1] = 200
-                eachPix[2] = 200
-            elif mean(eachPix[:3]) > balance:
-                eachPix[0] = 150
-                eachPix[1] = 150
-                eachPix[2] = 150
-            elif mean(eachPix[:3]) > balance / 1.5:
-                eachPix[0] = 100
-                eachPix[1] = 100
-                eachPix[2] = 100
-            elif mean(eachPix[:3]) > balance / 2:
-                eachPix[0] = 50
-                eachPix[1] = 50
-                eachPix[2] = 50
-            else:
-                eachPix[0] = 0
-                eachPix[1] = 0
-                eachPix[2] = 0
-    return newAr
 
 
 def analyseImage(mobsArray):
