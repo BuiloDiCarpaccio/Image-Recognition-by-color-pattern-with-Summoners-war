@@ -41,7 +41,7 @@ def foundMob(mobMeanArray):
                 elif total < probs[2][0]:
                     probs[2] = (total, key)
         print(
-            f'|{row}|Higher probability are: \n\
+            f'|{row}|highest probabilities are: \n\
             #1 - {config.WARNING}{probs[0][1]}{config.ENDC} with {config.WARNING}{probs[0][0]}{config.ENDC}\n\
             #2 - {config.OKBLUE}{probs[1][1]}{config.ENDC} with {config.OKBLUE}{probs[1][0]}{config.ENDC}\n\
             #3 - {config.OKBLUE}{probs[2][1]}{config.ENDC} with {config.OKBLUE}{probs[2][0]}{config.ENDC}')

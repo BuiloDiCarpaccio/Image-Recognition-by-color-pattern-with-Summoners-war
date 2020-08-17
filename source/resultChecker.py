@@ -13,7 +13,7 @@ def verifyResults():
         else:
             error += 1
     print(emoji.emojize(
-        f'The result of mob found is: {config.OKGREEN} {found} success :check_mark:  {config.ENDC} and {config.FAIL} {error} fail :cross_mark: {config.ENDC}'))
+        f'The total of mobs found is: {config.OKGREEN} {found} success :check_mark:  {config.ENDC} and {config.FAIL} {error} fail :cross_mark: {config.ENDC}'))
     total = found / len(analyseImage.result) * 100
     if total == 100:
         print(emoji.emojize(f"The success rate is :hundred_points:%"))
