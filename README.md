@@ -10,7 +10,7 @@ Please only a box screenshot is allowed, of this type:\
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install emoji, pillow, matplotlib, opencv-python.
 
 ```bash
-git clone
+git clone https://github.com/BuiloDiCarpaccio/Image-Recognition-by-color-pattern-with-Summoners-war.git
 pip install emoji pillow matplotlib opencv-python
 ```
 
