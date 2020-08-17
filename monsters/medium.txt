@@ -1,0 +1,129 @@
+Multi image recognition by color pattern (game application)
+
+
+#1 tagline
+
+
+
+#2 description
+
+
+
+#3 Introduction
+    #a Why don't we use AI ? Everybody use AI !
+        To this day, there is a huge hype about AI and all the things you can do with it. Each day, there is more and more improvement in this domain.
+        On our concern, AI is the best solution in complex image recognition in most of the cases. But is it our case ?
+        In fact, if you think more in a business point of vue, you must be concerned by the ROI (return on investment). The ROI is the ratio between net profit and cost of investment.
+        Imagine that we create a startup to sell services with this programm, our cost will be first in money : the hardware to train our AI model, then in time (but time is money): time to trAIn
+        our model, then time to learn different AI skills and models ect. The profit would be a high % image recognition to sell.
+        Now, let's imagine we have an algorithm without expensive hardware to buy, without huge time to train a model, and with approximalty the same % of image recognition.
+        What we spent is the time to think about it and write the code (that i give you lucky businessman :) )
+        You can see that we economise time and money, and so it's not worth it to go with AI.
+        A lot of people think that AI is the solution of everything, in fact, it is, but if you have a simple problem, there must be a simple solution.
+        So young businessman, do you want to loose time and money to do AI, instead of coming with me, follow this guide and succeed just using your brain ?
+        I think the question is quickly anwsered.
+
+
+    #b what is the point of all this ?
+        Today, Image recognition is very important and it is used in a lots of domains such as autonomic cars or advanced medicine diagnostic/surgery. Unfortunately, as i'm afraid of blood and i don't have my driving license yet,
+        we will not revolutionize these domaines today, especially because thoses applications of image recognition require advanced AI, which is not the point here.
+        So we're gonna try to recognize little mobs from an image, more precisely, a screenshot of a game (which is less glamorous than automatic cars i must conceed). In our case this programm would be very usefull if mixed with a best team generator for x play mode,
+        generate the best synergy team, ect. Obviously, the code can be modified in order to adapte to other games, or other programs applications such as (...), since image recognition by color pattern isn't limited to mobile games.
+        To conclude, this programm is applicated to a specific game so it can be an example, but the programm was thought to be as possible, the more adapative.
+
+
+
+# Overview of our Programm
+    First, we have to split our data into 2 categories , first, the unknown data (the screenshot send by the user) and second, the known data (all the mobs database stored in folder mob's name).
+    the programm is splitted in 3 big steps: first, the image preprocessing, second, the application of our algorithm on the mob image, and third, the comparator to identify the mob.
+ 
+
+#4 Image Preprocessing
+    Image preprocessing is a very important part of this program, that a lot of dev underestimate. This is the necessary step to prepare the image to be processed by our algorithm.
+    There's 3 steps under this preprocessing: first we are gonna isolate the mobs from the original screen, then we will resize it so we can process all the image with the same size,
+    and we will end by clean the final mob image.
+
+    #aa get the mob pack
+        we want to isolate the mob pack from the rest of the screen. In fact, since this part of the program is only relevant to the exemple i choose (summoners war), that it's quite complexe,
+        and that you are probably not here to see this, i will explain the algorithm at the end of the article.
+
+    #a split
+        What we want here is to isolate the mob from the original screen. Thanks to the part before, we got the space between mobs, the average size of the mob, the number of columns and line.
+        We have all that's necessary to split our mob pack into little chunks of mobs.
+        #CODE
+        This should do the trick. all our mobs will be stored in an array
+
+    #b size
+        We are going to start to clean the mobs images. Here we have to set a size, so that we can process all the images. In order to compare the images, we have to set them the same size.
+        In this exemple, all our images will be set in 100x100.
+        #CODE
+
+
+    #c clean the mob
+        This is the final part of cleaning the mobs images. We will hide differences from the same mobs. In gatcha game, you will have a lot of variance on the image mobs, like stars, level or locked icones.
+        In order to accomplish this, we will just paste black squares on the differents spots that our variency show.
+        #CODE
+
+
+#5 Algorithm
+    #convert into pixel array
+        In order to compare colors, we should start to ask ourself how are stored the representation of color in the computer.
+        As you probably know, a pixel of color is stored in an array of 4 values, the first to represent the value of the red color, the second to represent
+        the value of the green color, the third to represent the value of the blue color and the fourth to set the opacity, the maximum of each color set at 255.
+        By comining this 3 Channel, you should get a color that ur computer can compute and display.
+        For instance, (255,255,255,255) is white, (0,0,0,255) is black, (255, 0, 0, 255) is red, (255, 0, 255, 255) is pink, ect
+        Since alpha doesn't really interest us, we will drop the value in the program.
+        So we are gonna transform our image in an 2 (height, width) dimensions array of pixel, so we will finally get a 3dimension array (height, width, and rgb combinaison)
+        #CODE
+
+    # Split image
+        Here we are. This is the part that you probably came for. We have a lot of possibility in order to identify which mob are stored in the array.
+        We could first try to compare pixel per pixel. Unfortunately, since we resized and croped the images, we could have some offset and differences between the real images,
+        that would totally make this useless.
+        The best choice would be to split our image into little chunks of square, to compare square per square with the test data.
+        #SCHEMA
+        With this solution, we will then manage to nullify the various inaccuracies due to the cropping and resizing.
+        #CODE
+        Here we have our little chunks to be compared
+
+    #get the mean by chunk of array
+        Here we have our little chunks of images in pixels array, and we have to find the best way to compare them to our dataset.
+        The best way to do this is to compute the mean of the red, green and blue value in our chunk, and to store it in order to compare it to our dataset.
+        The operation should result in this way
+        #IMAGE
+        Note that if we reshape our array to get it as our base image, we should obtain this
+        #IMAGE
+        You probably start to see how we will finally compare unknown data to our dataset.
+
+#6 Create data and compare
+    same shit 
+
+#compute diff between unknow image and data
+    We are now going to compare chunk by chunk with our unknown mob(yet) and all our dataset.
+    The process is quite simple, we are just gonna iterate over the array, and compare the difference between every rgb values.
+    To be more clear, we are gonna compare every red, green, and blue value between our unknown data and our dataset.
+    #SCHEMA
+    For every mob in our dataset, we will compare every chunk of the image, computing de difference between every red, green, and blue value.
+    By adding all this differences and dividing by the number of rgb value, we got the % of differences on each value.
+    We have then just to get the monster in our dataset with the lowest difference with our unknow monster, and this should be the monster we're looking for.
+    #CODE
+
+So here we are, we are going to run the program to see how many % of recognition we can get.
+
+# Conclusion
+    By running ou test file, we can see that our program reach 100% of mobs recognition in overs 3 screenshots from differents phones.
+    The fact that we didn't nedd here AI 
+
+
+#6 Move Forward  -> meme this is not even my final form freezer
+    # classification by type
+
+    # variable
+        chunk size
+        Black square
+
+    # threshold necessity
+        can use threshold since we need the color
+
+# Annexe
+    #crop the mob pack
