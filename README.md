@@ -1,6 +1,7 @@
 # Image Recognition by color pattern with Summoners war 
 
 Recognition of mobs on a screenshot from summoners war.\
+To read the full explaination article, please [read here](https://medium.com/multi-image-recognition-by-color-patterns-game/multi-image-recognition-by-color-patterns-game-application-4cdb2ff9c6f1)!
 This program found all the mob on the screenshot, whatever the size and the ratio of the screen, the type of the phone, the format of the image.\
 Please only a box screenshot is allowed, of this type:\
 ![alt text](./screenshots/screen0.jpg)
